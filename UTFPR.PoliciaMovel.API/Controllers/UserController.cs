@@ -19,6 +19,7 @@ namespace UTFPR.PoliciaMovel.API.Controllers
         {
             try
             {
+                createUserRequest.Password = _userService.HashPassword(createUserRequest.Password);
                 await _userService.SaveAsync(createUserRequest);
                 return Created("", null);
             }

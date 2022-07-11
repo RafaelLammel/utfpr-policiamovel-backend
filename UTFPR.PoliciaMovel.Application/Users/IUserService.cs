@@ -3,5 +3,6 @@
     public interface IUserService
     {
         Task SaveAsync(CreateUserRequest request);
+        string HashPassword(string password);
     }
 }
