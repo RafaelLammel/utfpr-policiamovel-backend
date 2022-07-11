@@ -18,7 +18,7 @@ namespace UTFPR.PoliciaMovel.Infrastructure.Data.Repositories
             _collection = mondoDatabase.GetCollection<T>(typeof(T).Name);
         }
 
-        public async Task Save(T entity)
+        public async Task SaveAsync(T entity)
         {
             await _collection.InsertOneAsync(entity);
         }

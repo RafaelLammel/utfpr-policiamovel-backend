@@ -3,6 +3,6 @@
     public interface IRepository<T>
         where T : class
     {
-        Task Save(T entity);
+        Task SaveAsync(T entity);
     }
 }
