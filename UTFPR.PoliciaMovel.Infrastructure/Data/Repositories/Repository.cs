@@ -22,5 +22,8 @@ namespace UTFPR.PoliciaMovel.Infrastructure.Data.Repositories
         {
             await _collection.InsertOneAsync(entity);
         }
+
+
+
     }
 }
