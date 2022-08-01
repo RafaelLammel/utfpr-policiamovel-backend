@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System.Security.Cryptography;
 using System.Text;
+using UTFPR.PoliciaMovel.Application.Exceptions;
 using UTFPR.PoliciaMovel.Domain.Entities;
 
 namespace UTFPR.PoliciaMovel.Application.Users
@@ -35,6 +36,11 @@ namespace UTFPR.PoliciaMovel.Application.Users
 
         public async Task SaveAsync(CreateUserRequest request)
         {
+            User user = await _userRepository.FindByLoginAsync(request.Login);
+
+            if (user != null)
+                throw new InvalidUserLoginException("Já existe um usuário com este Login");
+            
             var entity = new User()
             {
                 Login = request.Login,

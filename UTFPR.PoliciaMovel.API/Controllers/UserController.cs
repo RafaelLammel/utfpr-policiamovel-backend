@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using UTFPR.PoliciaMovel.Application.Exceptions;
 using UTFPR.PoliciaMovel.Application.Users;
 
 namespace UTFPR.PoliciaMovel.API.Controllers
@@ -23,9 +24,13 @@ namespace UTFPR.PoliciaMovel.API.Controllers
                 await _userService.SaveAsync(createUserRequest);
                 return Created("", null);
             }
+            catch (InvalidUserLoginException ex)
+            {
+                return BadRequest(new { errorMsg = ex.Message });
+            }
             catch
             {
-                return StatusCode(500);
+                return StatusCode(500, new { errorMsg = "Algo deu errado" });
             }
         }
     }
