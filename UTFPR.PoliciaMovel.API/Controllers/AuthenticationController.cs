@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using UTFPR.PoliciaMovel.Application.Exceptions;
 using UTFPR.PoliciaMovel.Application.Users;
-using UTFPR.PoliciaMovel.Domain.Entities;
 using UTFPR.PoliciaMovel.Infrastructure.Authentication;
 
 namespace UTFPR.PoliciaMovel.API.Controllers
@@ -13,22 +13,33 @@ namespace UTFPR.PoliciaMovel.API.Controllers
     {
         private readonly IUserService _userService;
         private readonly TokenService _tokenService;
+        
         public AuthenticationController(IUserService userService, TokenService tokenService)
         {
-            this._userService = userService;
-            this._tokenService = tokenService;
+            _userService = userService;
+            _tokenService = tokenService;
         }
+        
         [HttpPost]
-        [Route("login")]
+        [Route("Login")]
         public async Task<IActionResult> Authenticate([FromBody] LoginRequest loginRequest)
         {
-            User user = await _userService.GetByLoginAndPassword(loginRequest);
-            if (user == null)
+            try
+            {
+                LoginResponse user = await _userService.GetByLoginAndPassword(loginRequest);
+
+                string token = _tokenService.GenerateToken(user);
+                
+                return Ok(new { AccessToken = token });
+            }
+            catch (UserNotFoundException)
             {
                 return NotFound();
             }
-            string token = _tokenService.GenerateToken(user);
-            return Ok(new { AccessToken = token });
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { errorMsg = "Algo deu errado", exceptionMessage = ex.Message });
+            }
         }
     }
 }

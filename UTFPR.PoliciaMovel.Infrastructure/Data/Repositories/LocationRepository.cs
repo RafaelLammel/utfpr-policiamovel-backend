@@ -7,15 +7,8 @@ namespace UTFPR.PoliciaMovel.Infrastructure.Data.Repositories
 {
     public class LocationRepository : Repository<Location>, ILocationRepository
     {
-        private readonly IMongoCollection<Location> _collection;
         public LocationRepository(IConfiguration configuration) : base(configuration)
         {
-            var mongoClient = new MongoClient(configuration.GetValue<string>("ConnectionString"));
-
-            var mondoDatabase = mongoClient.GetDatabase(configuration.GetValue<string>("Database"));
-
-            _collection = mondoDatabase.GetCollection<Location>(typeof(Location).Name);
-
         }
 
         public async Task<Location> GetAsync(string id)

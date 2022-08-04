@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using UTFPR.PoliciaMovel.Application.Exceptions;
 using UTFPR.PoliciaMovel.Application.Locations;
-using UTFPR.PoliciaMovel.Domain.Entities;
 
 namespace UTFPR.PoliciaMovel.API.Controllers
 {
@@ -25,9 +25,9 @@ namespace UTFPR.PoliciaMovel.API.Controllers
                 await _locationService.SaveAsync(createLocationRequest);
                 return Created("", null);
             }
-            catch
+            catch(Exception ex)
             {
-                return StatusCode(500);
+                return StatusCode(500, new { errorMsg = "Algo deu errado", exceptionMessage = ex.Message });
             }
         }
 
@@ -37,15 +37,18 @@ namespace UTFPR.PoliciaMovel.API.Controllers
             try
             {
                 if (userId != User.Identity.Name)
-                {
                     return BadRequest();
-                }
+                
                 await _locationService.UpdateAsync(userId, updateLocationRequest);
-                return Ok();
+                return NoContent();
             }
-            catch
+            catch(LocationNotFoundByUserIdException ex)
             {
-                return NotFound();
+                return NotFound(new { errorMsg = ex.Message });
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, new { errorMsg = "Algo deu errado", exceptionMessage = ex.Message });
             }
         }
     }

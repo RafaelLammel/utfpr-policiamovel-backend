@@ -30,9 +30,9 @@ namespace UTFPR.PoliciaMovel.API.Controllers
             {
                 return BadRequest(new { errorMsg = ex.Message });
             }
-            catch
+            catch(Exception ex)
             {
-                return StatusCode(500, new { errorMsg = "Algo deu errado" });
+                return StatusCode(500, new { errorMsg = "Algo deu errado", exceptionMessage = ex.Message });
             }
         }
     }

@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+
 namespace UTFPR.PoliciaMovel.Application.Locations
 {
     public class CreateLocationRequest
