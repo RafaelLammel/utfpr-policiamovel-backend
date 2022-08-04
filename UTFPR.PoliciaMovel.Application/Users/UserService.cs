@@ -24,7 +24,7 @@ namespace UTFPR.PoliciaMovel.Application.Users
             using var sha256 = SHA256.Create();
 
             byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password + salt));
-            
+
             var builder = new StringBuilder();
             foreach (var b in bytes)
             {
@@ -40,7 +40,7 @@ namespace UTFPR.PoliciaMovel.Application.Users
 
             if (user != null)
                 throw new InvalidUserLoginException("Já existe um usuário com este Login");
-            
+
             var entity = new User()
             {
                 Login = request.Login,
@@ -48,6 +48,12 @@ namespace UTFPR.PoliciaMovel.Application.Users
             };
 
             await _userRepository.SaveAsync(entity);
+        }
+
+        public async Task<User> GetByLoginAndPassword(LoginRequest request)
+        {
+            User user = await _userRepository.FindByLoginAndPasswordAsync(request.Login, HashPassword(request.Password));
+            return user;
         }
     }
 }
