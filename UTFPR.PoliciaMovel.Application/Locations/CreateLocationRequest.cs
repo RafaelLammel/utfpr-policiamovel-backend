@@ -4,10 +4,10 @@ namespace UTFPR.PoliciaMovel.Application.Locations
     public class CreateLocationRequest
     {
         [Required]
-        public string userId {get; set;}
+        public string UserId { get; set; }
         [Required]
-        public string longitude { get; set; }
+        public string Longitude { get; set; }
         [Required]
-        public string latitude { get; set; }
+        public string Latitude { get; set; }
     }
 }

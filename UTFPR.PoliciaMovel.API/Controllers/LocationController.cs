@@ -32,16 +32,23 @@ namespace UTFPR.PoliciaMovel.API.Controllers
         [HttpPut("{userId}")]
         public async Task<IActionResult> Update(string userId, [FromBody] UpdateLocationRequest updateLocationRequest)
         {
-            Location location = await _locationService.GetAsync(userId);
-            if (location is null)
+            // Location location = await _locationService.GetAsync(userId);
+            // if (location is null)
+            // {
+            //     return NotFound();
+            // }
+
+            // location.Longitude = updateLocationRequest.latitude;
+            // location.Latitute = updateLocationRequest.longitude;
+            try
+            {
+                await _locationService.UpdateAsync(userId, updateLocationRequest);
+                return Ok();
+            }
+            catch
             {
                 return NotFound();
             }
-
-            location.Longitude = updateLocationRequest.latitude;
-            location.Latitute = updateLocationRequest.longitude;
-            await _locationService.UpdateAsync(userId, location);
-            return Ok();
         }
     }
 }

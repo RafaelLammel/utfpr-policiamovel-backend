@@ -21,7 +21,6 @@ namespace UTFPR.PoliciaMovel.Infrastructure.Data.Repositories
         public async Task<Location> GetAsync(string id)
         {
             Location location = await _collection.Find(x => x.UserId == id).FirstOrDefaultAsync();
-            Console.WriteLine(location.Id);
             return location;
         }
 

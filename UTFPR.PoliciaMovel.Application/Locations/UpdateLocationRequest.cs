@@ -4,8 +4,8 @@ namespace UTFPR.PoliciaMovel.Application.Locations
     public class UpdateLocationRequest
     {
         [Required]
-        public string longitude { get; set; }
+        public string Longitude { get; set; }
         [Required]
-        public string latitude { get; set; }
+        public string Latitude { get; set; }
     }
 }

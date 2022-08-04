@@ -16,9 +16,9 @@ public class LocationService : ILocationService
     {
         var entity = new Location()
         {
-            UserId = request.userId,
-            Latitute = request.latitude,
-            Longitude = request.longitude
+            UserId = request.UserId,
+            Latitude = request.Latitude,
+            Longitude = request.Longitude
         };
 
         await _locationRepository.SaveAsync(entity);
@@ -30,9 +30,11 @@ public class LocationService : ILocationService
         return location;
     }
 
-
-    public async Task UpdateAsync(string userId, Location updatedLocation)
+    public async Task UpdateAsync(string userId, UpdateLocationRequest updatedLocation)
     {
-        await _locationRepository.UpdateAsync(userId, updatedLocation);
+        Location location = await _locationRepository.GetAsync(userId);
+        location.Latitude = updatedLocation.Latitude;
+        location.Longitude = updatedLocation.Longitude;
+        await _locationRepository.UpdateAsync(userId, location);
     }
 }

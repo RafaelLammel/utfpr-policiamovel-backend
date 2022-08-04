@@ -6,6 +6,6 @@ namespace UTFPR.PoliciaMovel.Application.Locations
     {
         Task SaveAsync(CreateLocationRequest request);
         Task<Location> GetAsync(string userId);
-        Task UpdateAsync(string userId, Location updatedLocation);
+        Task UpdateAsync(string userId, UpdateLocationRequest updatedLocation);
     }
 }
