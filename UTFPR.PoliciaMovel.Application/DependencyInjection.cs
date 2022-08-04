@@ -10,7 +10,7 @@ namespace UTFPR.PoliciaMovel.Application
         {
             services.AddTransient<ILocationService, LocationService>();
             services.AddTransient<IUserService, UserService>();
-
+            
             return services;
         }
     }
