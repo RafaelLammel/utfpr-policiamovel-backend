@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using UTFPR.PoliciaMovel.Application.Exceptions;
 using UTFPR.PoliciaMovel.Application.Users;
 
@@ -6,6 +7,7 @@ namespace UTFPR.PoliciaMovel.API.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;

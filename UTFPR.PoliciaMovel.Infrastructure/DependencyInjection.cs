@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using UTFPR.PoliciaMovel.Application.Locations;
 using UTFPR.PoliciaMovel.Application.Users;
+using UTFPR.PoliciaMovel.Infrastructure.Authentication;
 using UTFPR.PoliciaMovel.Infrastructure.Data.Repositories;
 
 namespace UTFPR.PoliciaMovel.Infrastructure
@@ -11,7 +12,7 @@ namespace UTFPR.PoliciaMovel.Infrastructure
         {
             services.AddTransient<ILocationRepository, LocationRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
-
+            services.AddTransient<TokenService>();
             return services;
         }
     }
