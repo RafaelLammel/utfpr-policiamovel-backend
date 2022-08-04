@@ -7,7 +7,7 @@ namespace UTFPR.PoliciaMovel.Infrastructure.Data.Repositories
     public abstract class Repository<T> : IRepository<T>
         where T : class
     {
-        private readonly IMongoCollection<T> _collection;
+        protected readonly IMongoCollection<T> _collection;
 
         public Repository(IConfiguration configuration)
         {

@@ -4,9 +4,9 @@ namespace UTFPR.PoliciaMovel.Application.Users
 {
     public class CreateUserRequest
     {
-        [Required]
+        [Required (ErrorMessage = "Login é obrigatório")]
         public string Login { get; set; }
-        [Required]
+        [Required (ErrorMessage = "Senha é obrigatória")]
         public string Password { get; set; }
     }
 }
