@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using UTFPR.PoliciaMovel.Application.Authentication;
 using UTFPR.PoliciaMovel.Application.Exceptions;
 using UTFPR.PoliciaMovel.Application.Users;
-using UTFPR.PoliciaMovel.Infrastructure.Authentication;
 
 namespace UTFPR.PoliciaMovel.API.Controllers
 {
@@ -12,9 +12,9 @@ namespace UTFPR.PoliciaMovel.API.Controllers
     public class AuthenticationController : ControllerBase
     {
         private readonly IUserService _userService;
-        private readonly TokenService _tokenService;
+        private readonly ITokenService _tokenService;
         
-        public AuthenticationController(IUserService userService, TokenService tokenService)
+        public AuthenticationController(IUserService userService, ITokenService tokenService)
         {
             _userService = userService;
             _tokenService = tokenService;

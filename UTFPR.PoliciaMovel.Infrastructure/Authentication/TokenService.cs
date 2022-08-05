@@ -3,11 +3,12 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using UTFPR.PoliciaMovel.Application.Authentication;
 using UTFPR.PoliciaMovel.Application.Users;
 
 namespace UTFPR.PoliciaMovel.Infrastructure.Authentication
 {
-    public class TokenService
+    public class TokenService : ITokenService
     {
         private readonly IConfiguration _configuration;
 
