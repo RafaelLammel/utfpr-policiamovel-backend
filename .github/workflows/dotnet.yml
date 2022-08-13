@@ -27,7 +27,7 @@ jobs:
       run: dotnet build --no-restore
       
     - name: Publish
-      run: dotnet publish -C Release -o '${{ github.workspace }}/out'
+      run: dotnet publish -c Release -o '${{ github.workspace }}/out'
       
     - name: Zip Package
       run: |
