@@ -58,20 +58,7 @@ builder.Services.AddSwaggerGen(options =>
         }
     };
     options.AddSecurityDefinition(securityScheme.Reference.Id, securityScheme);
-    
-    var basicSecurityScheme = new OpenApiSecurityScheme
-    {
-        Name = "Basic Authentication",
-        Type = SecuritySchemeType.Http,
-        Scheme = "basic",
-        Reference = new OpenApiReference 
-        { 
-            Id = "basic", 
-            Type = ReferenceType.SecurityScheme 
-        }
-    };
-    options.AddSecurityDefinition(basicSecurityScheme.Reference.Id, basicSecurityScheme);
-    
+
     var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });

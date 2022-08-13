@@ -8,7 +8,6 @@ namespace UTFPR.PoliciaMovel.API.Filters
     {
        public void Apply(OpenApiOperation operation, OperationFilterContext context)
        {
-           // Get Authorize attribute
            if (context.MethodInfo.DeclaringType == null) return;
            var attributes = context.MethodInfo.DeclaringType.GetCustomAttributes(true)
                .Union(context.MethodInfo.GetCustomAttributes(true))
@@ -18,8 +17,7 @@ namespace UTFPR.PoliciaMovel.API.Filters
            if (authorizeAttributes.Any())
            {
                var attr = authorizeAttributes.ToList()[0];
-
-               // Add what should be show inside the security section
+               
                IList<string> securityInfos = new List<string>();
                securityInfos.Add($"{nameof(AuthorizeAttribute.Policy)}:{attr.Policy}");
                securityInfos.Add($"{nameof(AuthorizeAttribute.Roles)}:{attr.Roles}");
@@ -27,35 +25,16 @@ namespace UTFPR.PoliciaMovel.API.Filters
 
                operation.Security = attr.AuthenticationSchemes switch
                {
-                   "Basic" => new List<OpenApiSecurityRequirement>()
+                   _ => new List<OpenApiSecurityRequirement>
                    {
-                       new OpenApiSecurityRequirement()
+                       new()
                        {
                            {
                                new OpenApiSecurityScheme
                                {
                                    Reference = new OpenApiReference
                                    {
-                                       Id =
-                                           "basic", // Must fit the defined Id of SecurityDefinition in global configuration
-                                       Type = ReferenceType.SecurityScheme,
-                                   }
-                               },
-                               securityInfos
-                           }
-                       }
-                   },
-                   _ => new List<OpenApiSecurityRequirement>()
-                   {
-                       new OpenApiSecurityRequirement()
-                       {
-                           {
-                               new OpenApiSecurityScheme
-                               {
-                                   Reference = new OpenApiReference
-                                   {
-                                       Id =
-                                           "bearer", // Must fit the defined Id of SecurityDefinition in global configuration
+                                       Id = "bearer",
                                        Type = ReferenceType.SecurityScheme
                                    }
                                },
