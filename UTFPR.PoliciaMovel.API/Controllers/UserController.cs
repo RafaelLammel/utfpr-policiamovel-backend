@@ -17,7 +17,20 @@ namespace UTFPR.PoliciaMovel.API.Controllers
             _userService = userService;
         }
 
+        /// <summary>
+        /// Cria um novo usuário
+        /// </summary>
+        /// <param name="createUserRequest"></param>
+        /// <response code="201">Usuário criado com sucesso</response>
+        /// <response code="400">Quando o corpo da requisição está errado ou Login já existe na base</response>
+        /// <response code="401">Quando há problemas na autorização (token JWT inválido ou falta dele)</response>
+        /// <response code="500">Quando ocorre um erro não mepado</response>
         [HttpPost]
+        [Produces("application/json")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Create([FromBody] CreateUserRequest createUserRequest)
         {
             try
@@ -28,11 +41,19 @@ namespace UTFPR.PoliciaMovel.API.Controllers
             }
             catch (InvalidUserLoginException ex)
             {
-                return BadRequest(new { errorMsg = ex.Message });
+                return BadRequest(new ProblemDetails
+                {
+                    Status = 400,
+                    Title = ex.Message
+                });
             }
-            catch
+            catch(Exception ex)
             {
-                return StatusCode(500, new { errorMsg = "Algo deu errado" });
+                return StatusCode(500, new ProblemDetails
+                {
+                    Status = 500,
+                    Title = ex.Message
+                });
             }
         }
     }

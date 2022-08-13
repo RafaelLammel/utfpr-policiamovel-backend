@@ -3,11 +3,12 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using UTFPR.PoliciaMovel.Domain.Entities;
+using UTFPR.PoliciaMovel.Application.Authentication;
+using UTFPR.PoliciaMovel.Application.Users;
 
 namespace UTFPR.PoliciaMovel.Infrastructure.Authentication
 {
-    public class TokenService
+    public class TokenService : ITokenService
     {
         private readonly IConfiguration _configuration;
 
@@ -15,10 +16,13 @@ namespace UTFPR.PoliciaMovel.Infrastructure.Authentication
         {
             this._configuration = configuration;
         }
-        public string GenerateToken(User user)
+        
+        public string GenerateToken(LoginResponse user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
+            
             var key = Encoding.ASCII.GetBytes(_configuration.GetValue<string>("JwtSecret"));
+            
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
@@ -28,7 +32,9 @@ namespace UTFPR.PoliciaMovel.Infrastructure.Authentication
                 Expires = DateTime.UtcNow.AddHours(2),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
+            
             var token = tokenHandler.CreateToken(tokenDescriptor);
+            
             return tokenHandler.WriteToken(token);
         }
     }

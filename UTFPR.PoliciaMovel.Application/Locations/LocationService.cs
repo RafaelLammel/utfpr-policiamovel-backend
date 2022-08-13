@@ -1,40 +1,40 @@
-using Microsoft.Extensions.Configuration;
-using UTFPR.PoliciaMovel.Application.Locations;
+using UTFPR.PoliciaMovel.Application.Exceptions;
 using UTFPR.PoliciaMovel.Domain.Entities;
 
-public class LocationService : ILocationService
+namespace UTFPR.PoliciaMovel.Application.Locations
 {
-    private readonly ILocationRepository _locationRepository;
-    private readonly IConfiguration _configuration;
+    public class LocationService : ILocationService
+    {
+        private readonly ILocationRepository _locationRepository;
 
-    public LocationService(ILocationRepository locationRepository, IConfiguration configuration)
-    {
-        _locationRepository = locationRepository;
-        _configuration = configuration;
-    }
-    public async Task SaveAsync(CreateLocationRequest request)
-    {
-        var entity = new Location()
+        public LocationService(ILocationRepository locationRepository)
         {
-            UserId = request.UserId,
-            Latitude = request.Latitude,
-            Longitude = request.Longitude
-        };
+            _locationRepository = locationRepository;
+        }
 
-        await _locationRepository.SaveAsync(entity);
-    }
+        public async Task SaveAsync(CreateLocationRequest request)
+        {
+            var entity = new Location()
+            {
+                UserId = request.UserId,
+                Latitude = request.Latitude,
+                Longitude = request.Longitude
+            };
 
-    public async Task<Location> GetAsync(string userId)
-    {
-        Location location = await _locationRepository.GetAsync(userId);
-        return location;
-    }
+            await _locationRepository.SaveAsync(entity);
+        }
 
-    public async Task UpdateAsync(string userId, UpdateLocationRequest updatedLocation)
-    {
-        Location location = await _locationRepository.GetAsync(userId);
-        location.Latitude = updatedLocation.Latitude;
-        location.Longitude = updatedLocation.Longitude;
-        await _locationRepository.UpdateAsync(userId, location);
+        public async Task UpdateAsync(string userId, UpdateLocationRequest updatedLocation)
+        {
+            Location location = await _locationRepository.GetAsync(userId);
+
+            if (location == null)
+                throw new LocationNotFoundByUserIdException("Nenhuma localização encontrada para o usuário em questão");
+
+            location.Latitude = updatedLocation.Latitude;
+            location.Longitude = updatedLocation.Longitude;
+
+            await _locationRepository.UpdateAsync(userId, location);
+        }
     }
 }

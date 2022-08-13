@@ -50,10 +50,20 @@ namespace UTFPR.PoliciaMovel.Application.Users
             await _userRepository.SaveAsync(entity);
         }
 
-        public async Task<User> GetByLoginAndPassword(LoginRequest request)
+        public async Task<LoginResponse> GetByLoginAndPassword(LoginRequest request)
         {
             User user = await _userRepository.FindByLoginAndPasswordAsync(request.Login, HashPassword(request.Password));
-            return user;
+
+            if (user == null)
+                throw new UserNotFoundException();
+            
+            var response = new LoginResponse()
+            {
+                Id = user.Id,
+                Login = user.Login
+            };
+            
+            return response;
         }
     }
 }

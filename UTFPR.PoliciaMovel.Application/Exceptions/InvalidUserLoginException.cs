@@ -1,8 +1,10 @@
-namespace UTFPR.PoliciaMovel.Application.Exceptions;
-
-public class InvalidUserLoginException : Exception
+namespace UTFPR.PoliciaMovel.Application.Exceptions
 {
-    public InvalidUserLoginException(string message) : base(message)
+    public class InvalidUserLoginException : Exception
     {
+        public InvalidUserLoginException(string message) : base(message)
+        {
+        }
     }
 }
+
