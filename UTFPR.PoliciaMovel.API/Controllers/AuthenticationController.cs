@@ -28,7 +28,7 @@ namespace UTFPR.PoliciaMovel.API.Controllers
         /// <response code="200">Retorna o Token de Acesso</response>
         /// <response code="400">Quando o corpo da requisição está errado</response>
         /// <response code="404">Quando o usuário não é encontrado na base (login ou senha incorretos)</response>
-        /// <response code="500">Quando ocorre um erro não mepado</response>
+        /// <response code="500">Quando ocorre um erro não mapeado</response>
         [HttpPost]
         [Route("Login")]
         [Produces("application/json")]
