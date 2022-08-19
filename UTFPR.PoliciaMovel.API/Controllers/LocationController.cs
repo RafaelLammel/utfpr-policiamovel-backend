@@ -18,37 +18,6 @@ namespace UTFPR.PoliciaMovel.API.Controllers
         }
 
         /// <summary>
-        /// Cria uma localização vinculada a um usuário
-        /// </summary>
-        /// <param name="createLocationRequest"></param>
-        /// <response code="201">Localização criada com sucesso</response>
-        /// <response code="400">Quando o corpo da requisição está errado</response>
-        /// <response code="401">Quando há problemas na autorização (token JWT inválido ou falta dele)</response>
-        /// <response code="500">Quando ocorre um erro não mepado</response>
-        [HttpPost]
-        [Produces("application/json")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Create([FromBody] CreateLocationRequest createLocationRequest)
-        {
-            try
-            {
-                await _locationService.SaveAsync(createLocationRequest);
-                return Created("", null);
-            }
-            catch(Exception ex)
-            {
-                return StatusCode(500, new ProblemDetails
-                {
-                    Status = 500,
-                    Title = ex.Message
-                });
-            }
-        }
-
-        /// <summary>
         /// Atualiza uma localização vinculada a um usuário
         /// </summary>
         /// <param name="userId"></param>
@@ -71,11 +40,11 @@ namespace UTFPR.PoliciaMovel.API.Controllers
             {
                 if (userId != User.Identity.Name)
                     return BadRequest();
-                
+
                 await _locationService.UpdateAsync(userId, updateLocationRequest);
                 return NoContent();
             }
-            catch(LocationNotFoundByUserIdException ex)
+            catch (LocationNotFoundByUserIdException ex)
             {
                 return NotFound(new ProblemDetails
                 {
@@ -83,7 +52,7 @@ namespace UTFPR.PoliciaMovel.API.Controllers
                     Title = ex.Message
                 });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(500, new ProblemDetails
                 {
@@ -91,6 +60,17 @@ namespace UTFPR.PoliciaMovel.API.Controllers
                     Title = ex.Message
                 });
             }
+        }
+
+        /// <summary>
+        /// Retorna uma lista com todas as localizações
+        /// </summary>
+        /// <response code="200">Lista retornada com sucesso</response>
+        /// <response code="401">Quando há problemas na autorização (token JWT inválido ou falta dele)</response>
+        [HttpGet]
+        public async Task<List<GetLocationsRequest>> GetLocations()
+        {
+            return await _locationService.GetLocations();
         }
     }
 }

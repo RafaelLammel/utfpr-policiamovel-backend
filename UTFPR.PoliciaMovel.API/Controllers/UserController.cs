@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UTFPR.PoliciaMovel.Application.Exceptions;
+using UTFPR.PoliciaMovel.Application.Locations;
 using UTFPR.PoliciaMovel.Application.Users;
+using UTFPR.PoliciaMovel.Domain.Entities;
 
 namespace UTFPR.PoliciaMovel.API.Controllers
 {
@@ -11,10 +13,11 @@ namespace UTFPR.PoliciaMovel.API.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
-
-        public UserController(IUserService userService)
+        private readonly ILocationService _locationService;
+        public UserController(IUserService userService, ILocationService locationService)
         {
             _userService = userService;
+            _locationService = locationService;
         }
 
         /// <summary>
@@ -36,7 +39,8 @@ namespace UTFPR.PoliciaMovel.API.Controllers
             try
             {
                 createUserRequest.Password = _userService.HashPassword(createUserRequest.Password);
-                await _userService.SaveAsync(createUserRequest);
+                User newUser = await _userService.SaveAsync(createUserRequest);
+                await _locationService.SaveAsync(new CreateLocationRequest { UserId = newUser.Id });
                 return Created("", null);
             }
             catch (InvalidUserLoginException ex)
@@ -47,7 +51,7 @@ namespace UTFPR.PoliciaMovel.API.Controllers
                     Title = ex.Message
                 });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(500, new ProblemDetails
                 {

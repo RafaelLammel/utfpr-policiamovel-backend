@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Configuration;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using UTFPR.PoliciaMovel.Application.Locations;
 using UTFPR.PoliciaMovel.Domain.Entities;
@@ -15,6 +16,11 @@ namespace UTFPR.PoliciaMovel.Infrastructure.Data.Repositories
         {
             Location location = await Collection.Find(x => x.UserId == id).FirstOrDefaultAsync();
             return location;
+        }
+
+        public async Task<List<Location>> GetAsync()
+        {
+            return await Collection.Find(new BsonDocument()).ToListAsync();
         }
 
         public async Task UpdateAsync(string id, Location updatedLocation)
