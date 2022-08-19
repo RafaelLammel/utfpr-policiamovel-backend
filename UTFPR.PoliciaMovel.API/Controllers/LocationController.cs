@@ -26,7 +26,7 @@ namespace UTFPR.PoliciaMovel.API.Controllers
         /// <response code="400">Quando o corpo da requisição está errado</response>
         /// <response code="401">Quando há problemas na autorização (token JWT inválido ou falta dele)</response>
         /// <response code="404">Quando o usuário informado não é encontrado na base</response>
-        /// <response code="500">Quando ocorre um erro não mepado</response>
+        /// <response code="500">Quando ocorre um erro não mapeado</response>
         [HttpPut("{userId}")]
         [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
