@@ -24,7 +24,7 @@ namespace UTFPR.PoliciaMovel.API.Controllers
         /// <response code="201">Usuário criado com sucesso</response>
         /// <response code="400">Quando o corpo da requisição está errado ou Login já existe na base</response>
         /// <response code="401">Quando há problemas na autorização (token JWT inválido ou falta dele)</response>
-        /// <response code="500">Quando ocorre um erro não mepado</response>
+        /// <response code="500">Quando ocorre um erro não mapeado</response>
         [HttpPost]
         [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status201Created)]
