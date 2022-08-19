@@ -34,7 +34,7 @@ namespace UTFPR.PoliciaMovel.Application.Users
             return builder.ToString();
         }
 
-        public async Task SaveAsync(CreateUserRequest request)
+        public async Task<User> SaveAsync(CreateUserRequest request)
         {
             User user = await _userRepository.FindByLoginAsync(request.Login);
 
@@ -48,6 +48,7 @@ namespace UTFPR.PoliciaMovel.Application.Users
             };
 
             await _userRepository.SaveAsync(entity);
+            return entity;
         }
 
         public async Task<LoginResponse> GetByLoginAndPassword(LoginRequest request)
@@ -56,13 +57,13 @@ namespace UTFPR.PoliciaMovel.Application.Users
 
             if (user == null)
                 throw new UserNotFoundException();
-            
+
             var response = new LoginResponse()
             {
                 Id = user.Id,
                 Login = user.Login
             };
-            
+
             return response;
         }
     }

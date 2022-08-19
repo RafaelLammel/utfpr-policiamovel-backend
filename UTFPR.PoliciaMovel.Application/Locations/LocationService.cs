@@ -36,5 +36,17 @@ namespace UTFPR.PoliciaMovel.Application.Locations
 
             await _locationRepository.UpdateAsync(userId, location);
         }
+
+        public async Task<List<GetLocationsRequest>> GetLocations()
+        {
+            List<Location> locations = await _locationRepository.GetAsync();
+            List<GetLocationsRequest> locationsView = locations.Select(x => new GetLocationsRequest()
+            {
+                UserId = x.UserId,
+                Latitude = x.Latitude,
+                Longitude = x.Longitude
+            }).ToList();
+            return locationsView;
+        }
     }
 }
