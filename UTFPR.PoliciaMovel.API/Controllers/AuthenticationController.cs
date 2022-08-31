@@ -44,7 +44,7 @@ namespace UTFPR.PoliciaMovel.API.Controllers
 
                 string token = _tokenService.GenerateToken(user);
                 
-                return Ok(new TokenResponse{ AccessToken = token });
+                return Ok(new TokenResponse{ AccessToken = token, UserId = user.Id });
             }
             catch (UserNotFoundException)
             {
