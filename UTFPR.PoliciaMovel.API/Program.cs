@@ -13,6 +13,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
+builder.Services.AddCors();
+
 var key = Encoding.ASCII.GetBytes(builder.Configuration.GetValue<string>("JwtSecret"));
 builder.Services.AddAuthentication(x =>
 {
@@ -73,6 +75,13 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseCors(options =>
+{
+    options.AllowAnyOrigin();
+    options.AllowAnyMethod();
+    options.AllowAnyHeader();
+});
 
 app.MapControllers();
 
