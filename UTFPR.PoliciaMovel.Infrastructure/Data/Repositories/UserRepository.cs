@@ -20,5 +20,10 @@ namespace UTFPR.PoliciaMovel.Infrastructure.Data.Repositories
         {
             return await Collection.Find(x => x.Login == login).FirstOrDefaultAsync();
         }
+
+        public async Task<User> FindById(string userId)
+        {
+            return await Collection.Find(x => x.Id == userId).FirstOrDefaultAsync();
+        }
     }
 }

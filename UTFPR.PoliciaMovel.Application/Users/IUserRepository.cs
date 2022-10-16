@@ -7,5 +7,6 @@ namespace UTFPR.PoliciaMovel.Application.Users
     {
         Task<User> FindByLoginAsync(string login);
         Task<User> FindByLoginAndPasswordAsync(string login, string password);
+        Task<User> FindById(string userId);
     }
 }
