@@ -14,7 +14,7 @@ namespace UTFPR.PoliciaMovel.Infrastructure.Authentication
 
         public TokenService(IConfiguration configuration)
         {
-            this._configuration = configuration;
+            _configuration = configuration;
         }
         
         public string GenerateToken(LoginResponse user)
@@ -29,7 +29,7 @@ namespace UTFPR.PoliciaMovel.Infrastructure.Authentication
                 {
                     new Claim(ClaimTypes.Name, user.Id),
                 }),
-                Expires = DateTime.UtcNow.AddHours(2),
+                Expires = DateTime.UtcNow.AddHours(_configuration.GetValue<int>("JwtExpirationTime")),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             
