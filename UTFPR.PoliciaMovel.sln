@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32616.157
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UTFPR.PoliciaMovel.API", "UTFPR.PoliciaMovel.API\UTFPR.PoliciaMovel.API.csproj", "{B5A18771-CEE6-4603-A3CF-6F7011F880A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UTFPR.PoliciaMovel.Application", "UTFPR.PoliciaMovel.Application\UTFPR.PoliciaMovel.Application.csproj", "{BC7542CD-5FF0-4222-98D3-486A7233EDC7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UTFPR.PoliciaMovel.Domain", "UTFPR.PoliciaMovel.Domain\UTFPR.PoliciaMovel.Domain.csproj", "{4642FBA5-110F-4C97-86A5-EF9CFD56E2C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UTFPR.PoliciaMovel.Infrastructure", "UTFPR.PoliciaMovel.Infrastructure\UTFPR.PoliciaMovel.Infrastructure.csproj", "{236B149C-03D5-4A36-BF7C-10DF562EC104}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B5A18771-CEE6-4603-A3CF-6F7011F880A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5A18771-CEE6-4603-A3CF-6F7011F880A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5A18771-CEE6-4603-A3CF-6F7011F880A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5A18771-CEE6-4603-A3CF-6F7011F880A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC7542CD-5FF0-4222-98D3-486A7233EDC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC7542CD-5FF0-4222-98D3-486A7233EDC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC7542CD-5FF0-4222-98D3-486A7233EDC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC7542CD-5FF0-4222-98D3-486A7233EDC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4642FBA5-110F-4C97-86A5-EF9CFD56E2C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4642FBA5-110F-4C97-86A5-EF9CFD56E2C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4642FBA5-110F-4C97-86A5-EF9CFD56E2C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4642FBA5-110F-4C97-86A5-EF9CFD56E2C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{236B149C-03D5-4A36-BF7C-10DF562EC104}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{236B149C-03D5-4A36-BF7C-10DF562EC104}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{236B149C-03D5-4A36-BF7C-10DF562EC104}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{236B149C-03D5-4A36-BF7C-10DF562EC104}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8B6C855E-FCCF-4F5C-B816-FA6B500C4889}
+	EndGlobalSection
+EndGlobal
